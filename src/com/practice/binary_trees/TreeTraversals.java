@@ -2,6 +2,9 @@ package com.practice.binary_trees;
 
 import com.practice.utils.FunctionType;
 
+import java.lang.System;
+import java.util.Stack;
+
 public class TreeTraversals {
     private Node root;
 
@@ -21,10 +24,10 @@ public class TreeTraversals {
         Node node = root;
         if(functionType == FunctionType.RECURSIVE){
             printInorderTraversalRec(node);
-            System.out.println();
         } else {
             printInorderTraversalItr(node);
         }
+        System.out.println();
     }
 
     /**
@@ -32,7 +35,23 @@ public class TreeTraversals {
      * @param node
      */
     private void printInorderTraversalItr(Node node) {
+        Stack<Node> stack = new Stack<Node>();
+        while(true){
+            while(node != null){
+                stack.push(node);
+                node = node.left;
+            }
+            if(stack.isEmpty()){
+                break;
+            } else{
+                node = stack.pop();
+                System.out.print(node.data+" ");
+                if(node.right != null){
+                    node = node.right;
+                }
+            }
 
+        }
     }
 
     /**
@@ -107,5 +126,9 @@ public class TreeTraversals {
             printPostorderTraversalRec(node.right);
             System.out.print(node.data+" ");
         }
+    }
+
+    public static void main(String[] args) {
+        System.out.println("main");
     }
 }
