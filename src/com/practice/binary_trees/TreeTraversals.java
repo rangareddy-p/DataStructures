@@ -31,11 +31,35 @@ public class TreeTraversals {
     }
 
     /**
-     * Iterative Implementation for Inorder tree traversal
+     * Iterative Implementation for Inorder Tree traversal
      * @param node
      */
-    private void printInorderTraversalItr(Node node) {
-        Stack<Node> stack = new Stack<Node>();
+    private void printInorderTraversalItr(Node node){
+        Stack<Node> stack = new Stack<>();
+        if(node != null){
+            stack.push(node);
+        }
+        while(node != null && !stack.isEmpty()){
+            if(node.left != null){
+                stack.push(node.left);
+                node = node.left;
+            } else {
+                node = stack.pop();
+                System.out.print(node.data+" ");
+                if(node.right != null){
+                    node = node.right;
+                    stack.push(node);
+                }
+            }
+        }
+    }
+
+    /**
+     * Iterative Implementation 2 for Inorder tree traversal
+     * @param node
+     */
+    private void printInorderTraversalItr2(Node node) {
+        Stack<Node> stack = new Stack<>();
         while(true){
             while(node != null){
                 stack.push(node);
@@ -72,10 +96,10 @@ public class TreeTraversals {
         Node node = root;
         if(functionType == FunctionType.RECURSIVE){
             printPreorderTraversalRec(node);
-            System.out.println();
         } else {
             printPreorderTraversalItr(node);
         }
+        System.out.println();
     }
 
     /**
@@ -95,7 +119,41 @@ public class TreeTraversals {
      * @param node
      */
     private void printPreorderTraversalItr(Node node){
+        Stack<Node> stack = new Stack<>();
+        stack.push(node);
+        while (node != null){
+            node = stack.pop();
+            System.out.print(node.data+" ");
+            if(node.right != null){
+                stack.push(node.right);
+            }
+            if(node.left != null){
+                stack.push(node.left);
+            }
+        }
+    }
 
+    /**
+     * Iterative implementation 2 for Preorder tree traversal
+     * @param node
+     */
+    private void printPreorderTraversalItr2(Node node){
+        Stack<Node> stack = new Stack<>();
+        while(true){
+            while(node != null){
+                System.out.print(node.data+" ");
+                stack.push(node);
+                node = node.left;
+            }
+            if(stack.isEmpty()){
+                break;
+            } else {
+                node = stack.pop();
+                if(node.right != null){
+                    node = node.right;
+                }
+            }
+        }
     }
 
     public void printPostorderTraversal(FunctionType functionType){
