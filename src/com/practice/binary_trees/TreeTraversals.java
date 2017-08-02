@@ -3,6 +3,8 @@ package com.practice.binary_trees;
 import com.practice.utils.FunctionType;
 
 import java.lang.System;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 public class TreeTraversals {
@@ -211,6 +213,24 @@ public class TreeTraversals {
             printPostorderTraversalRec(node.left);
             printPostorderTraversalRec(node.right);
             System.out.print(node.data+" ");
+        }
+    }
+
+    /**
+     * Level order traversal for a binary tree using Queue
+     */
+    private void printLevelOrderTraversal(Node node){
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(node);
+        while(!queue.isEmpty()){
+            node = queue.poll();
+            System.out.print(node.data+" ");
+            if(node.left != null){
+                queue.add(node.left);
+            }
+            if(node.right != null){
+                queue.add(node.right);
+            }
         }
     }
 
