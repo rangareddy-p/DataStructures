@@ -173,7 +173,25 @@ public class TreeTraversals {
      * @param node
      */
     private void printPostorderTraversalItr(Node node) {
-
+        Stack<Node> stack = new Stack<>();
+        while(node != null || !stack.isEmpty()){
+            if(node != null){
+                stack.push(node);
+                node = node.left;
+            } else {
+                node = stack.peek();
+                if(node.right != null){
+                    node = node.right;
+                } else {
+                    Node temp = stack.pop();
+                    System.out.print(temp.data+" ");
+                    while(!stack.isEmpty() && stack.peek().right == temp){
+                        temp = stack.pop();
+                        System.out.print(temp.data+" ");
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -224,7 +242,7 @@ public class TreeTraversals {
         queue.add(node);
         while(!queue.isEmpty()){
             node = queue.poll();
-            System.out.print(node.data+" ");
+            System.out.print(node.data + " ");
             if(node.left != null){
                 queue.add(node.left);
             }
