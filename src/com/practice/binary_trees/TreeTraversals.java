@@ -167,11 +167,39 @@ public class TreeTraversals {
     }
 
     /**
-     * Iterative Implementation for Postorder tree traversal
+     * Iterative Implementation using one Stack for Postorder tree traversal
      * @param node
      */
     private void printPostorderTraversalItr(Node node) {
 
+    }
+
+    /**
+     * Iterative Implementation using two Stacks for Postorder tree traversal
+     * @param node
+     */
+    private void printPostorderTraversalItr2(Node node) {
+        Stack<Node> stack1 = new Stack<>();
+        Stack<Node> stack2 = new Stack<>();
+
+        if(node != null){
+            stack1.push(node);
+        }
+
+        while(!stack1.isEmpty()){
+            node = stack1.pop();
+            if(node.right != null){
+                stack1.push(node.right);
+            }
+            if(node.left != null){
+                stack1.push(node.left);
+            }
+            stack2.push(node);
+        }
+
+        while(!stack2.isEmpty()){
+            System.out.print(stack2.pop().data+" ");
+        }
     }
 
     /**
