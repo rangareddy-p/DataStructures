@@ -1,18 +1,46 @@
 package com.practice.binary_trees;
 
 import com.practice.utils.FunctionType;
+import com.practice.utils.TreeUtils;
 
 import java.lang.System;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
 
+/**
+ * Different types of Tree traversals for Binary tree
+ */
 public class TreeTraversals {
     private Node root;
 
-    class Node {
-        Node left, right;
-        int data;
+    public class Node {
+        private Node left, right;
+        private int data;
+
+        public Node getLeft() {
+            return left;
+        }
+
+        public void setLeft(Node left) {
+            this.left = left;
+        }
+
+        public Node getRight() {
+            return right;
+        }
+
+        public void setRight(Node right) {
+            this.right = right;
+        }
+
+        public int getData() {
+            return data;
+        }
+
+        public void setData(int data) {
+            this.data = data;
+        }
     }
 
     public TreeTraversals(Node root){
@@ -223,6 +251,40 @@ public class TreeTraversals {
     }
 
     /**
+     * Iterative Implementation using one Stack for Postorder tree traversal
+     */
+    private void printPostorderTraversalItr3(Node node){
+        Stack<Node> stack = new Stack<>();
+        if(node != null){
+        stack.push(node);
+        }
+        while(node != null || !stack.isEmpty()){
+            node = stack.peek();
+            Node temp = null;
+            if(node.right != null){
+                stack.push(node.right);
+                temp = node.right;
+            }
+
+            if(node.left != null){
+                stack.push(node.left);
+                temp = node.left;
+            }
+
+            node = temp;
+
+            if(node == null){
+                node = stack.pop();
+                System.out.print(node.data+" ");
+                while(!stack.isEmpty() && stack.peek().right == node){
+                    node = stack.pop();
+                    System.out.print(node.data+" ");
+                }
+            }
+        }
+    }
+
+    /**
      * Recursive Implementation for Postorder tree traversal
      * @param node
      */
@@ -230,14 +292,24 @@ public class TreeTraversals {
         if(node != null){
             printPostorderTraversalRec(node.left);
             printPostorderTraversalRec(node.right);
-            System.out.print(node.data+" ");
+            System.out.print(node.data + " ");
         }
+    }
+
+    private void printLevelOrderTraversal(FunctionType functionType){
+        Node node = root;
+        if(functionType == FunctionType.ITERATIVE){
+            printLevelOrderTraversalItr(node);
+        } else {
+            printLevelOrderTraversalRec(node);
+        }
+        System.out.println();
     }
 
     /**
      * Level order traversal for a binary tree using Queue
      */
-    private void printLevelOrderTraversal(Node node){
+    private void printLevelOrderTraversalItr(Node node){
         Queue<Node> queue = new LinkedList<>();
         queue.add(node);
         while(!queue.isEmpty()){
@@ -248,6 +320,32 @@ public class TreeTraversals {
             }
             if(node.right != null){
                 queue.add(node.right);
+            }
+        }
+    }
+
+    /**
+     * Level order traversal for a binary tree using recursion
+     */
+    private void printLevelOrderTraversalRec(Node node){
+        int height = TreeUtils.getHeight(node);
+        for(int i=0; i<height; i++){
+            printGivenLevelRec(node, i);
+        }
+    }
+
+    /**
+     * Print all the nodes at each level using recursion
+     * @param node
+     * @param level
+     */
+    private void printGivenLevelRec(Node node, int level) {
+        if(node != null){
+            if(level == 0) {
+                System.out.print(node.data+" ");
+            } else {
+                printGivenLevelRec(node.left, level - 1);
+                printGivenLevelRec(node.right, level - 1);
             }
         }
     }
