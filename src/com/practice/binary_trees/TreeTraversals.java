@@ -4,6 +4,7 @@ import com.practice.utils.FunctionType;
 import com.practice.utils.TreeUtils;
 
 import java.lang.System;
+import java.util.Deque;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
@@ -325,11 +326,85 @@ public class TreeTraversals {
     }
 
     /**
+     * Print all nodes on each level using iterative method
+     * @param node
+     */
+    private void printLevelOrderLineByLineItr(Node node){
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(node);
+        while(!queue.isEmpty()){
+            int nodeCount = queue.size();
+            while(nodeCount > 0){
+                node = queue.poll();
+                System.out.print(node.data+" ");
+                if(node.left != null){
+                    queue.add(node.left);
+                }
+                if(node.right != null){
+                    queue.add(node.right);
+                }
+                nodeCount--;
+            }
+            System.out.println();
+        }
+
+    }
+
+    /**
      * Level order traversal for a binary tree using recursion
      */
     private void printLevelOrderTraversalRec(Node node){
         int height = TreeUtils.getHeight(node);
-        for(int i=0; i<height; i++){
+        for(int i=1; i<=height; i++){
+            printGivenLevelRec(node, i);
+        }
+    }
+
+    /**
+     * Print reverse level order traversal for a binary tree
+     * @param functionType
+     */
+    private void printReverseLevelOrder(FunctionType functionType){
+        Node node = root;
+        if(functionType == FunctionType.ITERATIVE){
+            printReverseLevelOrderTraversalItr(node);
+        } else {
+            printReverseLeveOrderTraversalRec(node);
+        }
+    }
+
+    /**
+     * Print reverse level order traversal using iteration
+     * @param node
+     */
+    private void printReverseLevelOrderTraversalItr(Node node) {
+        Queue<Node> queue = new LinkedList<>();
+        Stack<Node> stack = new Stack<>();
+        if(node != null){
+            queue.add(node);
+        }
+        while (!queue.isEmpty()){
+            node = queue.poll();
+            stack.push(node);
+            if(node.right != null){
+                queue.add(node.right);
+            }
+            if(node.left != null){
+                queue.add(node.left);
+            }
+        }
+        while(!stack.isEmpty()){
+            System.out.print(stack.pop()+" ");
+        }
+    }
+
+    /**
+     * Print reverse level order traversal using recursion
+     * @param node
+     */
+    private void printReverseLeveOrderTraversalRec(Node node){
+        int height = TreeUtils.getHeight(node);
+        for(int i = height; i>0; i--){
             printGivenLevelRec(node, i);
         }
     }
@@ -341,12 +416,97 @@ public class TreeTraversals {
      */
     private void printGivenLevelRec(Node node, int level) {
         if(node != null){
-            if(level == 0) {
+            if(level == 1) {
                 System.out.print(node.data+" ");
-            } else {
+            } else if(level > 1){
                 printGivenLevelRec(node.left, level - 1);
                 printGivenLevelRec(node.right, level - 1);
             }
+        }
+    }
+
+    /**
+     * Print all the nodes in spiral level order format
+     * @param functionType
+     */
+    private void printSpiralLevelOrder(FunctionType functionType){
+        Node node = root;
+        if(functionType == FunctionType.ITERATIVE){
+            printSpiralLevelOrderTraversalItr(node);
+        } else {
+            printSpiralLevelOrderTraversalRec(node);
+        }
+    }
+
+    /**
+     * Recursive implementation of printing nodes in spiral level order format
+     * @param node
+     */
+    private void printSpiralLevelOrderTraversalRec(Node node) {
+        int height = TreeUtils.getHeight(node);
+        for(int i=1; i<=height; i++){
+            printSpiralGivenLevelRec(node, i, i&1);
+        }
+        System.out.println();
+    }
+
+    /**
+     * Print nodes in each level in spiral order format
+     * @param node
+     * @param level
+     * @param evenOddIndicator
+     */
+    private void printSpiralGivenLevelRec(Node node, int level, int evenOddIndicator) {
+        if(node != null){
+            if(level == 1){
+                System.out.print(node.data + " ");
+            } else if(level > 1){
+                if(evenOddIndicator == 1){
+                    printSpiralGivenLevelRec(node.right, level-1, evenOddIndicator);
+                    printSpiralGivenLevelRec(node.left, level-1, evenOddIndicator);
+                } else {
+                    printSpiralGivenLevelRec(node.left, level-1, evenOddIndicator);
+                    printSpiralGivenLevelRec(node.right, level-1, evenOddIndicator);
+                }
+            }
+        }
+    }
+
+    /**
+     * Iterative implementation of printing nodes in spiral level order format
+     * @param node
+     */
+    private void printSpiralLevelOrderTraversalItr(Node node) {
+        Deque<Node> queue = new LinkedList<>();
+        if(node != null){
+            queue.add(node);
+        }
+
+        boolean evenLevel = false;
+        while(!queue.isEmpty()){
+            int nodeCount = queue.size();
+            while(nodeCount > 0){
+                if(!evenLevel){
+                    node = queue.pollLast();
+                    System.out.print(node.data+" ");
+                    if(node.right != null){
+                        queue.addFirst(node);
+                    }
+                    if(node.left != null){
+                        queue.addFirst(node);
+                    }
+                } else {
+                    node = queue.pollFirst();
+                    System.out.print(node.data+" ");
+                    if(node.left != null){
+                        queue.addLast(node);
+                    }
+                    if(node.right != null){
+                        queue.addLast(node);
+                    }
+                }
+            }
+            evenLevel = !evenLevel;
         }
     }
 
