@@ -22,4 +22,8 @@ public enum TraversalType {
      */
     LEVEL_ORDER,
 
+    /**
+     * nodes only on the boundaries of the tree
+     */
+    BOUNDARY_TRAVERSAL
 }

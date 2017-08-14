@@ -43,6 +43,9 @@ public class TreeTraversals {
             case LEVEL_ORDER:
                 printLevelOrderTraversal(functionType);
                 break;
+            case BOUNDARY_TRAVERSAL:
+                printBoundaryTraversal(functionType);
+                break;
         }
     }
 
@@ -619,6 +622,86 @@ public class TreeTraversals {
                 }
             }
             evenLevel = !evenLevel;
+        }
+    }
+
+    /**
+     * Prints all the boundary nodes in a tree based on the function type
+     *
+     * @param functionType
+     */
+    private void printBoundaryTraversal(FunctionType functionType) {
+        Node current = root;
+        switch (functionType) {
+            case RECURSIVE:
+                printRecursiveBoundaryTraversal(current);
+                break;
+            default:
+                break;
+        }
+    }
+
+    /**
+     * Prints all the boundary nodes in a tree using recursive helper functions
+     *
+     * @param current
+     */
+    private void printRecursiveBoundaryTraversal(Node current) {
+        if(current != null) {
+            printLeftBoundaryNodes(current);
+
+            if (current.left != null) {
+                printSubtreeLeaves(current.left);
+            }
+
+            if (current.right != null) {
+                printSubtreeLeaves(current.right);
+            }
+
+            printRightBoundaryNodes(current);
+        }
+    }
+
+    /**
+     * Prints all the subtree leaves
+     *
+     * @param current
+     */
+    private void printSubtreeLeaves(Node current) {
+        if (current.left != null) {
+            printSubtreeLeaves(current.left);
+        } else if (current.right != null) {
+            printSubtreeLeaves(current.right);
+        } else {
+            System.out.print(current.data + " ");
+        }
+    }
+
+    /**
+     * Prints right boundary nodes except the rightmost leaf node
+     *
+     * @param current
+     */
+    private void printRightBoundaryNodes(Node current) {
+        if (current.right != null) {
+            printRightBoundaryNodes(current.right);
+        } else if (current.left != null) {
+            printRightBoundaryNodes(current.left);
+        }
+        System.out.print(current.data + " ");
+    }
+
+    /**
+     * Prints left boundary nodes including the root and except the leftmost leaf node
+     *
+     * @param current
+     */
+    private void printLeftBoundaryNodes(Node current) {
+        System.out.print(current.data + " ");
+        if (current.left != null) {
+            printLeftBoundaryNodes(current.left);
+        } else if (current.right != null) {
+            printLeftBoundaryNodes(current.right);
         }
     }
 
