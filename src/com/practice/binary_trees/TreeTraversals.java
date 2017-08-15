@@ -4,10 +4,7 @@ import com.practice.enums.FunctionType;
 import com.practice.enums.TraversalType;
 import com.practice.utils.TreeUtils;
 
-import java.util.Deque;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * Different types of Tree traversals for Binary tree
@@ -43,8 +40,23 @@ public class TreeTraversals {
             case LEVEL_ORDER:
                 printLevelOrderTraversal(functionType);
                 break;
+            case REVERSE_LEVEL_ORDER:
+                printReverseLevelOrder(functionType);
+                break;
+            case SPIRAL_LEVEL_ORDER:
+                printSpiralLevelOrder(functionType);
+                break;
+            case SPECIFIC_LEVEL_ORDER:
+                printSpecificLevelOrder(functionType);
+                break;
             case BOUNDARY_TRAVERSAL:
                 printBoundaryTraversal(functionType);
+                break;
+            case VERTICAL_ORDER:
+                printVerticalOrderTraversal(functionType);
+                break;
+            default:
+                System.out.println(traversalType.name() + " Not Yet Implemented !!");
                 break;
         }
     }
@@ -63,6 +75,9 @@ public class TreeTraversals {
                 break;
             case MORRIS:
                 printInorderMorrisTraversal(node);
+                break;
+            default:
+                System.out.println(functionType.name() + " Not Yet Implemented !!");
                 break;
         }
         System.out.println();
@@ -83,8 +98,145 @@ public class TreeTraversals {
             case MORRIS:
                 printPreOrderMorrisTraversal(node);
                 break;
+            default:
+                System.out.println(functionType.name() + " Not Yet Implemented !!");
+                break;
         }
         System.out.println();
+    }
+
+    /**
+     * Prints post order tree traversal
+     *
+     * @param functionType
+     */
+    private void printPostorderTraversal(FunctionType functionType) {
+        Node node = root;
+        switch (functionType) {
+            case RECURSIVE:
+                printRecursivePostorderTraversal(node);
+                break;
+            case ITERATIVE:
+                printIterativePostorderTraversal(node);
+                break;
+            default:
+                System.out.println(functionType.name() + " Not Yet Implemented !!");
+                break;
+        }
+        System.out.println();
+    }
+
+    /**
+     * Prints level order tree traversal
+     *
+     * @param functionType
+     */
+    private void printLevelOrderTraversal(FunctionType functionType) {
+        Node node = root;
+        switch (functionType) {
+            case ITERATIVE:
+                printIterativeLevelOrderTraversal(node);
+                break;
+            case RECURSIVE:
+                printRecursiveLevelOrderTraversal(node);
+                break;
+            default:
+                System.out.println(functionType.name() + " Not Yet Implemented !!");
+                break;
+        }
+        System.out.println();
+    }
+
+    /**
+     * Print reverse level order traversal for a binary tree
+     *
+     * @param functionType
+     */
+    private void printReverseLevelOrder(FunctionType functionType) {
+        Node node = root;
+        switch (functionType) {
+            case ITERATIVE:
+                printIterativeReverseLevelOrderTraversal(node);
+                break;
+            case RECURSIVE:
+                printRecursiveReverseLeveOrderTraversal(node);
+                break;
+            default:
+                System.out.println(functionType.name() + " Not Yet Implemented !!");
+                break;
+        }
+    }
+
+    /**
+     * Print all the nodes in spiral level order format
+     *
+     * @param functionType
+     */
+    private void printSpiralLevelOrder(FunctionType functionType) {
+        Node node = root;
+        switch (functionType) {
+            case ITERATIVE:
+                printIterativeSpiralLevelOrderTraversal(node);
+                break;
+            case RECURSIVE:
+                printRecursiveSpiralLevelOrderTraversal(node);
+                break;
+            default:
+                System.out.println(functionType.name() + " Not Yet Implemented !!");
+                break;
+        }
+    }
+
+    /**
+     * Prints perfect binary tree specific level order traversal
+     * @see <a href="http://www.geeksforgeeks.org/perfect-binary-tree-specific-level-order-traversal">
+     *     Perfect Binary Tree Specific Level Order Traversal</a>
+     * @param functionType
+     */
+    private void printSpecificLevelOrder(FunctionType functionType) {
+        Node node = root;
+        switch (functionType){
+            case ITERATIVE:
+                printIterativeSpecificLevelOrder(node);
+                break;
+            default:
+                System.out.println(functionType.name() + " Not Yet Implemented !!");
+                break;
+        }
+    }
+
+    /**
+     * Prints all the boundary nodes in a tree based on the function type
+     *
+     * @param functionType
+     */
+    private void printBoundaryTraversal(FunctionType functionType) {
+        Node current = root;
+        switch (functionType) {
+            case RECURSIVE:
+                printRecursiveBoundaryTraversal(current);
+                break;
+            default:
+                System.out.println(functionType.name() + " Not Yet Implemented !!");
+                break;
+        }
+    }
+
+    /**
+     * Prints vertical order traversal
+     *
+     * @param functionType
+     */
+    private void printVerticalOrderTraversal(FunctionType functionType) {
+        Node node = root;
+        switch (functionType) {
+            case RECURSIVE:
+                printRecursiveVerticalOrderTraversal(node);
+                break;
+            default:
+                System.out.println(functionType.name() + " Not Yet Implemented !!");
+                break;
+        }
     }
 
     /**
@@ -261,26 +413,6 @@ public class TreeTraversals {
     }
 
     /**
-     * Prints post order tree traversal
-     *
-     * @param functionType
-     */
-    private void printPostorderTraversal(FunctionType functionType) {
-        Node node = root;
-        switch (functionType) {
-            case RECURSIVE:
-                printRecursivePostorderTraversal(node);
-                break;
-            case ITERATIVE:
-                printIterativePostorderTraversal(node);
-                break;
-            default:
-                break;
-        }
-        System.out.println();
-    }
-
-    /**
      * Iterative Implementation using one Stack for Postorder tree traversal
      *
      * @param node
@@ -384,26 +516,6 @@ public class TreeTraversals {
     }
 
     /**
-     * Prints level order tree traversal
-     *
-     * @param functionType
-     */
-    private void printLevelOrderTraversal(FunctionType functionType) {
-        Node node = root;
-        switch (functionType) {
-            case ITERATIVE:
-                printIterativeLevelOrderTraversal(node);
-                break;
-            case RECURSIVE:
-                printRecursiveLevelOrderTraversal(node);
-                break;
-            default:
-                break;
-        }
-        System.out.println();
-    }
-
-    /**
      * Level order traversal for a binary tree using Queue
      */
     private void printIterativeLevelOrderTraversal(Node node) {
@@ -444,7 +556,6 @@ public class TreeTraversals {
             }
             System.out.println();
         }
-
     }
 
     /**
@@ -454,25 +565,6 @@ public class TreeTraversals {
         int height = TreeUtils.getHeight(node);
         for (int i = 1; i <= height; i++) {
             printGivenLevelRec(node, i);
-        }
-    }
-
-    /**
-     * Print reverse level order traversal for a binary tree
-     *
-     * @param functionType
-     */
-    private void printReverseLevelOrder(FunctionType functionType) {
-        Node node = root;
-        switch (functionType) {
-            case ITERATIVE:
-                printIterativeReverseLevelOrderTraversal(node);
-                break;
-            case RECURSIVE:
-                printRecursiveReverseLeveOrderTraversal(node);
-                break;
-            default:
-                break;
         }
     }
 
@@ -528,25 +620,6 @@ public class TreeTraversals {
                 printGivenLevelRec(node.left, level - 1);
                 printGivenLevelRec(node.right, level - 1);
             }
-        }
-    }
-
-    /**
-     * Print all the nodes in spiral level order format
-     *
-     * @param functionType
-     */
-    private void printSpiralLevelOrder(FunctionType functionType) {
-        Node node = root;
-        switch (functionType) {
-            case ITERATIVE:
-                printIterativeSpiralLevelOrderTraversal(node);
-                break;
-            case RECURSIVE:
-                printRecursiveSpiralLevelOrderTraversal(node);
-                break;
-            default:
-                break;
         }
     }
 
@@ -626,18 +699,31 @@ public class TreeTraversals {
     }
 
     /**
-     * Prints all the boundary nodes in a tree based on the function type
+     * Prints perfect binary tree specific level order traversal using iterative approach
      *
-     * @param functionType
+     * @param node
      */
-    private void printBoundaryTraversal(FunctionType functionType) {
-        Node current = root;
-        switch (functionType) {
-            case RECURSIVE:
-                printRecursiveBoundaryTraversal(current);
-                break;
-            default:
-                break;
+    private void printIterativeSpecificLevelOrder(Node node) {
+        Queue<Node> queue = new LinkedList<>();
+        if(node != null){
+            System.out.print(node.data+" ");
+            if(node.left != null){
+                System.out.print(node.left.data+" "+node.right.data);
+                queue.add(node.left);
+                queue.add(node.right);
+            }
+            Node first, last;
+            while(!queue.isEmpty()){
+                first = queue.remove();
+                last = queue.remove();
+                if(first.left != null){
+                    System.out.print(first.left.data+" "+last.right.data+" "+first.right.data+" "+last.left.data);
+                    queue.add(first.left);
+                    queue.add(last.right);
+                    queue.add(first.right);
+                    queue.add(last.left);
+                }
+            }
         }
     }
 
@@ -647,7 +733,7 @@ public class TreeTraversals {
      * @param current
      */
     private void printRecursiveBoundaryTraversal(Node current) {
-        if(current != null) {
+        if (current != null) {
             printLeftBoundaryNodes(current);
 
             if (current.left != null) {
@@ -702,6 +788,44 @@ public class TreeTraversals {
             printLeftBoundaryNodes(current.left);
         } else if (current.right != null) {
             printLeftBoundaryNodes(current.right);
+        }
+    }
+
+    /**
+     * Prints binary tree nodes in vertical order
+     *
+     * @param node
+     */
+    private void printRecursiveVerticalOrderTraversal(Node node) {
+        //tree map is sorted in increasing order of keys by default
+        TreeMap<Integer, List<Node>> treeMap = new TreeMap<>();
+        int distance = 0;
+        getVerticalOrderHelper(node, treeMap, distance);
+
+        for (Map.Entry<Integer, List<Node>> entry : treeMap.entrySet()) {
+            System.out.println(entry.getValue());
+        }
+        System.out.println();
+    }
+
+    /**
+     * Gets the map that stores the node elements in the vertical order using preorder traversal
+     *
+     * @param node
+     * @param treeMap
+     * @param distance
+     */
+    private void getVerticalOrderHelper(Node node, TreeMap<Integer, List<Node>> treeMap, int distance) {
+        if (node != null) {
+            List<Node> list = treeMap.get(distance);
+            if (list == null) {
+                list = new ArrayList<>();
+            }
+            list.add(node);
+            treeMap.put(distance, list);
+
+            getVerticalOrderHelper(node.left, treeMap, distance - 1);
+            getVerticalOrderHelper(node.right, treeMap, distance + 1);
         }
     }
 
