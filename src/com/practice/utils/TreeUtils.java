@@ -1,7 +1,6 @@
 package com.practice.utils;
 
 
-import com.practice.binary_trees.TreeTraversals;
 import com.practice.binary_trees.TreeTraversals.Node;
 
 /**
@@ -44,7 +43,7 @@ public class TreeUtils {
      */
     public static void deleteTree(Node root){
         System.out.println("Deleted tree nodes are = ");
-        deleteTreeHelper(root);
+        deleteTreeRec(root);
         System.out.println();
     }
 
@@ -53,10 +52,10 @@ public class TreeUtils {
      *
      * @param node
      */
-    private static void deleteTreeHelper(Node node) {
+    private static void deleteTreeRec(Node node) {
         if(node != null){
-            deleteTreeHelper(node.getLeft());
-            deleteTreeHelper(node.getRight());
+            deleteTreeRec(node.getLeft());
+            deleteTreeRec(node.getRight());
             System.out.print(node.getData()+" ");
             node = null;
         }
